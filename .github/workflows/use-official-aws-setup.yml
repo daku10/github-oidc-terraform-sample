@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    environment: test
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ap-northeast-1
+          role-to-assume: arn:aws:iam::${{ secrets.ACCOUNT_ID }}:role/github-actions-role
+          role-session-name: MySessionName
+      - run: aws sts get-caller-identity
+      - run: aws ec2 describe-instances
