@@ -16,7 +16,7 @@ provider "aws" {
 locals {
   github = {
     org  = "daku10"
-    repo = "github-oidc-sample"
+    repo = "github-oidc-terraform-sample"
   }
 }
 
